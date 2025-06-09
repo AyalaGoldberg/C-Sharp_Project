@@ -1,0 +1,87 @@
+﻿
+@* namespace PhotoManagment.Views *@
+@* { *@
+@*     @using PhotoManagment.Models; *@
+
+@* 	model IEnumerable<OrderList> *@
+
+@*     <h2>הזמנות</h2> *@
+@*     <table> *@
+@*         <thead> *@
+@*             <tr> *@
+@*                 <th>קוד הזמנה</th> *@
+@*                 <th>סטטוס</th> *@
+@*                 <th>פעולה</th> *@
+@*             </tr> *@
+@*         </thead> *@
+@*         <tbody> *@
+@*             @foreach (var order in Model) *@
+@*             { *@
+@*                 <tr> *@
+@*                     <td>@order.OrdreCode</td> <!-- הצגת קוד ההזמנה --> *@
+@*                     <td>@order.ProcessStatus</td> <!-- הצגת הסטטוס הנוכחי --> *@
+@*                     <td> *@
+@*                         <form asp-action="UpdateStatus" method="post"> *@
+@*                             <!-- טופס לעדכון הסטטוס --> *@
+@*                             <input type="hidden" name="id" value="@order.id" /> <!-- שמירת מזהה ההזמנה --> *@
+@*                             <select name="newStatus"> *@
+@*                                 <!-- בחירת סטטוס חדש --> *@
+@*                                 <!-- כאן תוסיף את כל הסטטוסים האפשריים --> *@
+@*                             </select> *@
+@*                             <button type="submit">עדכן סטטוס</button> <!-- כפתור לשליחת הטופס --> *@
+@*                         </form> *@
+@*                     </td> *@
+@*                 </tr> *@
+@*             } *@
+@*         </tbody> *@
+@*     </table> *@
+
+
+@* } *@
+
+@model PhotoManagment.ViewModels.OrdersViewModels
+
+<h2>כניסת פקיד</h2>
+<form asp-action="Login" method="post">
+    <input type="text" name="OfficerCode" required placeholder="הכנס קוד פקיד" />
+    <button type="submit">כניסה</button>
+</form>
+
+@if (Model != null && Model.Orders != null && Model.Orders.Count >= 0)
+{
+    <h2>הזמנות</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>קוד הזמנה</th>
+                <th>סטטוס</th>
+                <th>פעולה</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.OrderCode</td> <!-- הצגת קוד ההזמנה -->
+                    <td>@order.ProcessStatus</td> <!-- הצגת הסטטוס הנוכחי -->
+                    <td>
+                        <form asp-action="UpdateStatus" method="post">
+                            <input type="hidden" name="orderId" value="@order.Id" />
+                            <select name="newStatusId">
+                                @foreach (var status in Model.Statuses)
+                                {
+                                    <option value="@status.Id">@status.StatusDescription</option>
+                                }
+                            </select>
+                            <button type="submit">עדכן סטטוס</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>נא להיכנס כדי לראות את ההזמנות.</p>
+}
