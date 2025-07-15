@@ -23,7 +23,7 @@ project of c# language
 1. בצע clone על הריפוזיטורי: git clone https://github.com/yourusername/PhotoManagementSystem.git
 2. עבור לתיקיית הפרויקט: cd PhotoManagementSystem
 3. שחזר את התלויות: dotnet restore
-4. עדכנן את מחרוזת החיבור בקובץ `appsettings.json` כך שתתאים להגדרות ה-SQL Server שלך.
+4. עדכן את מחרוזת החיבור בקובץ `appsettings.json` כך שתתאים להגדרות ה-SQL Server שלך.
 5. הרץ את האפליקציה:dotnet run
    
 ## שימוש
